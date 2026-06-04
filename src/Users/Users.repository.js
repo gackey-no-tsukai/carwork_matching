@@ -4,24 +4,18 @@ function createUsersRepository(knex, table = "users") {
     return result;
   };
 
+  const find = async () => {};
+
   const create = async (payload) => {
     const result = await knex.transaction(async (trx) => {
-      const [memo] = await trx(table)
+      const [user] = await trx(table)
         .insert({
-          title: payload.title,
-          last_edited_at: payload.last_edited_at,
+          user_name: payload.user_name,
+          email: payload.email,
+          create_at: payload.create_at,
         })
         .returning("*");
-      const [memoContent] = await trx("memo_contents")
-        .insert({
-          content: payload.content,
-          memo_id: memo.id,
-        })
-        .returning("*");
-      return {
-        ...memo,
-        content: memoContent.content,
-      };
+      return user;
     });
     return result;
   };
@@ -62,7 +56,7 @@ function createUsersRepository(knex, table = "users") {
     });
   };
 
-  return { read, create, update, remove };
+  return { read, find, create, update, remove };
 }
 
 module.exports = { createUsersRepository };
