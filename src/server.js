@@ -32,6 +32,8 @@ function setupServer() {
     res.send(deleteData);
   });
 
+  console.log("aaaa");
+
   return app;
 }
 
