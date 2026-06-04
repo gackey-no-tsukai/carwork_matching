@@ -27,7 +27,7 @@ function createPostsService(repository) {
     return { ok: true, data: null };
   };
 
-  return { read, create, find, update, remove };
+  return { read, find, create, update, remove };
 }
 
 module.exports = { createPostsService };
