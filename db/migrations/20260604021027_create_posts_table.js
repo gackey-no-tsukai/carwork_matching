@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("posts", function (table) {
     table.increments("id").primary();
-    table.integer("user_id").unsigned().references("id").inTable("users");
+    table.integer("user_id").references("users.id");
     table.text("job_name");
     table.text("job_content");
     table.text("requirements");

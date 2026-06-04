@@ -7,7 +7,6 @@ exports.seed = async function (knex) {
   await knex("posts").del();
   await knex("posts").insert([
     {
-      id: 1,
       user_id: "1",
       job_name: "タイヤ交換してほしい",
       job_content:
@@ -25,7 +24,6 @@ exports.seed = async function (knex) {
       status: true,
     },
     {
-      id: 2,
       user_id: "2",
       job_name: "マフラー交換して欲しい",
       job_content:
@@ -43,7 +41,6 @@ exports.seed = async function (knex) {
       status: true,
     },
     {
-      id: 3,
       user_id: "3",
       job_name: "エンジンオーバーホールをしてほしい",
       job_content:
