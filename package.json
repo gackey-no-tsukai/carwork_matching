@@ -1,0 +1,32 @@
+{
+  "name": "carwork_matching",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "migrate-make": "knex migrate:make",
+    "migrate-latest": "knex migrate:latest --",
+    "migrate-down": "knex migrate:rollback --all",
+    "seed-data": "knex seed:run",
+    "seed-make": "knex seed:make",
+    "build": "npm install && knex migrate:rollback --all && npm run migrate-latest && npm run seed-data",
+    "dev-build": "cd front && npm install && npm run build && rm -rf ../public && cp -r dist ../public",
+    "db-reset": "knex migrate:rollback --all && knex migrate:latest && knex seed:run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gackey-no-tsukai/carwork_matching"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "knex": "^2.5.1",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
