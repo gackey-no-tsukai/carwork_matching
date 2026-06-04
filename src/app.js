@@ -29,9 +29,7 @@ function buildApp() {
   // app.delete("/api/posts/:id", validateIdMiddleware, PostsController.remove);
 
   app.get("/api/users", UsersController.read);
-  app.get("/api/users/:id", validateIdMiddleware, UsersController.read);
-  app.get("/api/users/:id", validateIdMiddleware, UsersController.read);
-  app.get("/api/users/:id", validateIdMiddleware, UsersController.read);
+  // app.get("/api/users/:id", validateIdMiddleware, UsersController.read);
   // app.post("/api/users", PostsController.update);
   // app.patch("/Users/:id", validateIdMiddleware, UsersController.update);
   // app.delete("/Users/:id", validateIdMiddleware, UsersController.remove);

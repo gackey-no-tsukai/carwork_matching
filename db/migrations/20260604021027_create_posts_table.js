@@ -17,8 +17,9 @@ exports.up = function (knex) {
     table.string("location", 64);
     table.timestamp("start_time");
     table.timestamp("end_time");
-    table.integer("reward");
+    table.decimal("reward", 10, 2);
     table.boolean("status").defaultTo(true);
+    table.integer("join_user_id").references("users.id");
     //非nullは後で実装する
   });
 };
