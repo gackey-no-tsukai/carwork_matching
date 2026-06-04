@@ -8,14 +8,14 @@ function createUsersRepository(knex, table = "users") {
 
   const create = async (payload) => {
     const result = await knex.transaction(async (trx) => {
-      const [post] = await trx(table)
+      const [user] = await trx(table)
         .insert({
           user_name: payload.user_name,
           email: payload.email,
           create_at: payload.create_at,
         })
         .returning("*");
-      return post;
+      return user;
     });
     return result;
   };
