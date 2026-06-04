@@ -18,7 +18,7 @@ export default function Post() {
     getPost();
   });
 
-  let postList = postArray.map((ele) => {
+  return postArray.map((ele) => {
     return (
       <li key={ele.id}>
         <Box sx={{ border: 1 }}>
@@ -32,6 +32,4 @@ export default function Post() {
       </li>
     );
   });
-
-  return <Box fullwidth="true">{postList}</Box>;
 }
