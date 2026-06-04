@@ -22,6 +22,7 @@ exports.seed = async function (knex) {
       end_time: "2026-06-01 17:00:00.000+09",
       reward: 2000,
       status: true,
+      join_user_id: 4,
     },
     {
       user_id: "2",
@@ -39,6 +40,7 @@ exports.seed = async function (knex) {
       end_time: "2026-06-02 18:00:00.000+09",
       reward: 10000,
       status: true,
+      join_user_id: 3,
     },
     {
       user_id: "3",
@@ -56,6 +58,7 @@ exports.seed = async function (knex) {
       end_time: "2026-06-05 19:00:00.000+09",
       reward: 200000,
       status: false,
+      join_user_id: 1,
     },
   ]);
 };

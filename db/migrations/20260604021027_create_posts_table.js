@@ -19,6 +19,7 @@ exports.up = function (knex) {
     table.timestamp("end_time");
     table.integer("reward");
     table.boolean("status").defaultTo(true);
+    table.integer("join_user_id").references("users.id");
     //非nullは後で実装する
   });
 };
