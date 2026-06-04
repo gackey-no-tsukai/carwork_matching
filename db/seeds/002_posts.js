@@ -22,7 +22,7 @@ exports.seed = async function (knex) {
       start_time: "2026-06-01 10:00:00.000+09",
       end_time: "2026-06-01 17:00:00.000+09",
       reward: 2000,
-      status: false,
+      status: true,
     },
     {
       id: 2,
