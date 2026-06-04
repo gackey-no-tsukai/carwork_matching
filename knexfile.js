@@ -1,7 +1,7 @@
 /* You may need to fix this file */
 require("dotenv").config();
 
-const DB_USER = process.env.DB_USER;
+const DB_USER = "user";
 const DB_NAME = "carwork_matching";
 const DB_URL = process.env.DB_URL;
 

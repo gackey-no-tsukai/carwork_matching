@@ -1,9 +1,7 @@
-const config = require("./knexfile");
-const knex = require("knex")(config);
-const pg = require("pg");
+const knex = require("knex");
+const knexConfig = require("./knexfile");
 
-pg.types.setTypeParser(1184, function (stringValue) {
-  return stringValue;
-});
+// console.log(process.env.NODE_ENV);
+// const env = process.env.NODE_ENV;
 
-module.exports = knex;
+module.exports = knex(knexConfig);
