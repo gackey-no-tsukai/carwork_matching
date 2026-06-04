@@ -7,7 +7,7 @@ exports.seed = async function (knex) {
   await knex("posts").del();
   await knex("posts").insert([
     {
-      user_id: "1",
+      user_id: 1,
       job_name: "タイヤ交換してほしい",
       job_content:
         "タイヤを４つ交換してもらいます。道具や設備はこちらにあるので、現場に来て欲しいです",
@@ -25,7 +25,7 @@ exports.seed = async function (knex) {
       join_user_id: 4,
     },
     {
-      user_id: "2",
+      user_id: 2,
       job_name: "マフラー交換して欲しい",
       job_content:
         "マフラーを直感マフラーに変えて欲しいです。道具や設備はこちらにあるので、現場に来て欲しいです",
@@ -43,7 +43,7 @@ exports.seed = async function (knex) {
       join_user_id: 3,
     },
     {
-      user_id: "3",
+      user_id: 3,
       job_name: "エンジンオーバーホールをしてほしい",
       job_content:
         "エンジンのオーバーホールをして欲しいです。道具や設備はないので、作業場用意して欲しいです",
