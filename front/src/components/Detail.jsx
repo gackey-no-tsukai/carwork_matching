@@ -19,7 +19,7 @@ export default function Detail() {
     getPostDetail();
   });
 
-  const join = async () => {
+  const joinPost = async () => {
     const nowUserId = 2; //暫定、親コンポで今ログインしてるユーザーの情報を管理して、propsで貰う予定
     const patchData = {
       status: false,
@@ -37,7 +37,7 @@ export default function Detail() {
     }
   };
 
-  const cansell = async () => {
+  const leavePost = async () => {
     const patchData = {
       status: true,
       join_user_id: null,
@@ -78,14 +78,14 @@ export default function Detail() {
         <Typography>報酬：{post.reward}</Typography>
       </Box>
       {post.status ? (
-        <Button fullWidth onClick={join}>
+        <Button fullWidth onClick={joinPost}>
           参加する
         </Button>
       ) : (
         <Box>
           <br></br>
           <Typography>参加済みです</Typography>
-          <Button fullWidth onClick={cansell}>
+          <Button fullWidth onClick={leavePost}>
             参加解除
           </Button>
         </Box>
