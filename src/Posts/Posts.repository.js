@@ -4,7 +4,10 @@ function createPostsRepository(knex, table = "posts") {
     return result;
   };
 
-  const find = async () => {};
+  const find = async (id) => {
+    const result = await knex.select("*").from(table).where("id", id).first();
+    return result;
+  };
 
   const create = async (payload) => {
     const result = await knex.transaction(async (trx) => {
@@ -32,22 +35,18 @@ function createPostsRepository(knex, table = "posts") {
     return result;
   };
 
-  const update = async (payload) => {
+  const update = async (id, payload) => {
     const result = await knex.transaction(async (trx) => {
-      const [memo] = await trx(table)
+      const [post] = await trx(table)
         .where({ id: id })
         .update({
-          title: payload.title,
-          last_edited_at: payload.last_edited_at,
+          status: payload.status,
+          join_user_id: payload.join_user_id,
         })
         .returning("*");
-      const [memoContent] = await trx("memo_contents")
-        .where({ memo_id: memo.id })
-        .update({ content: payload.content })
-        .returning("*");
+
       return {
-        ...memo,
-        content: memoContent.content,
+        post,
       };
     });
     return result;
