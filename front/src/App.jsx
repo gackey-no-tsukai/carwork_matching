@@ -3,7 +3,7 @@ import List from "./components/List";
 import Post from "./components/Post";
 
 function App() {
-  return <List />;
+  return <Detail />;
 }
 
 export default App;

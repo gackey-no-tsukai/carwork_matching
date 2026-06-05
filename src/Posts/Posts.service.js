@@ -3,8 +3,8 @@ function createPostsService(repository) {
     return await repository.read();
   };
 
-  const find = async (payload) => {
-    const created = await repository.upsert(payload);
+  const find = async (id) => {
+    const created = await repository.find(id);
     return { ok: true, data: created };
   };
   const create = async (payload) => {
