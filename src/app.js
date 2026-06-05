@@ -1,5 +1,6 @@
 const express = require("express");
 const knex = require("../knex");
+const path = require("path");
 
 const { initPosts } = require("./Posts/index");
 const { initUsers } = require("./Users/index");
