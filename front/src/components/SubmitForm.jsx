@@ -25,10 +25,10 @@ export default function SubmitForm() {
 
   const handleSubmit = async () => {
     const now = new Date().toISOString();
-    const user = "徳川家康"; //ここはpropsで引き渡すため仮定義
+    const user = 3; //ここはpropsで引き渡すため仮定義
     const sentData = {
       // user_id: formdata.user_id.current?.value,
-      user_id: user,
+      user_id: "user",
       job_name: formdata.job_name.current?.value,
       job_content: formdata.job_content.current?.value,
       requirements: formdata.requirements.current?.value,
