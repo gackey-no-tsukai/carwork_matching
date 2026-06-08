@@ -24,7 +24,7 @@ function buildApp() {
   }
 
   app.get("/api/posts", PostsController.read);
-  // app.post("/api/posts", PostsController.update);
+  app.post("/api/posts", PostsController.create);
   // app.patch("/api/posts/:id", validateIdMiddleware, PostsController.update);
   // app.delete("/api/posts/:id", validateIdMiddleware, PostsController.remove);
 
