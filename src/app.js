@@ -1,11 +1,14 @@
 const express = require("express");
 const knex = require("../knex");
+const path = require("path");
 
 const { initPosts } = require("./Posts/index");
 const { initUsers } = require("./Users/index");
 
 function buildApp() {
   const app = express();
+
+  app.use(express.static(path.join(__dirname, "../public")));
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -23,7 +26,15 @@ function buildApp() {
     next();
   }
 
+  //Detail.jsxで使用
   app.get("/api/posts", PostsController.read);
+  app.get("/api/posts/:id", validateIdMiddleware, PostsController.find);
+  app.patch(
+    "/api/posts/join/:id",
+    validateIdMiddleware,
+    PostsController.update,
+  );
+
   // app.post("/api/posts", PostsController.update);
   // app.patch("/api/posts/:id", validateIdMiddleware, PostsController.update);
   // app.delete("/api/posts/:id", validateIdMiddleware, PostsController.remove);
