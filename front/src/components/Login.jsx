@@ -7,8 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Login from "./Login";
 import { initializeApp } from "firebase/app";
+import { useNavigate } from "react-router-dom";
 
 import {
   //   connectAuthEmulator,
@@ -24,14 +24,15 @@ import {
 import { firebaseConfig } from "../utils/config";
 import { useState, useEffect, useRef } from "react";
 
-export default function List() {
+export default function Login({ userInfo, setUserInfo }) {
   const [textMessage, setTxetMessage] = useState("");
   const [loginStatus, setLoginStatus] = useState("ログアウト中");
   const firebaseApp = initializeApp(firebaseConfig);
   const refEmail = useRef("");
   const refPassword = useRef("");
+  const navigate = useNavigate();
 
-  const toggleSignIn = () => {
+  const toggleSignIn = async () => {
     if (refEmail.current.value.length < 4) {
       setTxetMessage("メールアドレスを入力してください");
       alert("メールアドレスを入力してください");
@@ -46,13 +47,18 @@ export default function List() {
       mail: refEmail.current.value,
       password: refPassword.current.value,
     };
-    fetch("api/login", {
+    const res = await fetch("api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req),
-    })
-      .then((res) => res.json())
-      .then((res) => setTxetMessage((text) => res.message));
+    });
+    const data = await res.json();
+    if (data.ok) {
+      setUserInfo((info) => req.mail);
+      navigate("/list");
+    } else {
+      setTxetMessage((text) => data.message);
+    }
   };
 
   function handleSignUp() {

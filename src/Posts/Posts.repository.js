@@ -1,6 +1,6 @@
 function createPostsRepository(knex, table = "posts") {
   const read = async () => {
-    const result = await knex.select("*").from(table);
+    const result = await knex.select("*").from(table).orderBy("id", "asc");
     return result;
   };
 
@@ -10,6 +10,7 @@ function createPostsRepository(knex, table = "posts") {
   };
 
   const create = async (payload) => {
+    console.log("ペイロード", payload);
     const result = await knex.transaction(async (trx) => {
       const [post] = await trx(table)
         .insert({
@@ -32,6 +33,7 @@ function createPostsRepository(knex, table = "posts") {
         .returning("*");
       return post;
     });
+    console.log("result", result);
     return result;
   };
 
