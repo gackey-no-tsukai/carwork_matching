@@ -8,6 +8,7 @@ exports.up = function (knex) {
     table.text("post_user_email");
     table.text("job_name");
     table.text("job_content");
+    table.string("job_date", 32);
     table.text("requirements");
     table.string("car_brand", 32);
     table.string("car_name", 32);
@@ -17,7 +18,7 @@ exports.up = function (knex) {
     table.string("location", 64);
     table.string("start_time", 64);
     table.string("end_time", 64);
-    table.decimal("reward", 10, 2);
+    table.integer("reward");
     table.boolean("status").defaultTo(true);
     table.text("join_user_email");
     //非nullは後で実装する

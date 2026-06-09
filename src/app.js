@@ -85,7 +85,7 @@ function buildApp() {
         req.files[0].buffer,
         req.files[0].originalname,
       );
-      res.status(200).json({ successe: true, data: data, result: result });
+      res.status(200).json({ successe: true, data: data });
       return;
     } catch (error) {
       console.error(error);
