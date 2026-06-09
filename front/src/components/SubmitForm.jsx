@@ -5,7 +5,7 @@ import { TextField, Box, formControlLabelClasses } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useNavigate } from "react-router";
 
-export default function AddTask() {
+export default function AddTask({ userInfo, setUserInfo }) {
   const [submitForm, setSubmitForm] = useState(null);
   const [isSubmit, setIsSubmit] = useState(false);
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import { Button, Typography, Box, AppBar, Toolbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-export default function Detail({ testPostsId }) {
+export default function Detail({ userInfo, setUserInfo }) {
   const [post, setPost] = useState({});
   console.log(testPostsId);
   //暫定、Post.jsxの要素作成のonselectにsetstateを入れてpropsで貰う予定
