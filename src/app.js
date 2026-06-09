@@ -6,6 +6,11 @@ const upload = multer();
 const { initPosts } = require("./Posts/index");
 const { initUsers } = require("./Users/index");
 const { uploadPhoto, s3GetSignedUrl } = require("../utils");
+const {
+  toggleSignIn,
+  handleSignUp,
+  toggleSignOut,
+} = require("./firebase/index");
 
 function buildApp() {
   const app = express();
@@ -88,7 +93,22 @@ function buildApp() {
       return;
     }
   });
+  app.post("/api/login", async (req, res) => {
+    const respons = await toggleSignIn(req.body.mail, req.body.password);
+    res.json(respons);
+  });
 
+  app.post("/api/login/singup", async (req, res) => {
+    const respons = await handleSignUp(req.body.mail, req.body.password);
+    // const insert = UsersController.create(req, res);
+    // console.log(insert);
+    res.json(respons);
+  });
+
+  // app.get("/api/login/singout", async (req, res) => {
+  //   await toggleSignOut();
+  //   res.send("OK");
+  // });
   // app.post("/api/posts", PostsController.update);
   // app.patch("/api/posts/:id", validateIdMiddleware, PostsController.update);
   // app.delete("/api/posts/:id", validateIdMiddleware, PostsController.remove);

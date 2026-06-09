@@ -15,6 +15,7 @@ function createUsersController(service) {
   };
   const create = async (req, res) => {
     const result = await service.create(req.body);
+    console.log(result);
     res.status(201).json({ data: result });
   };
   const update = async (req, res) => {
