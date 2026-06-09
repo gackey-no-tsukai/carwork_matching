@@ -1,15 +1,22 @@
 import { Button, Typography, Box, AppBar, Toolbar } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-export default function Detail({ userInfo, setUserInfo }) {
+import { data, useNavigate } from "react-router";
+export default function Detail({
+  userInfo,
+  setUserInfo,
+  postId,
+  setPostId,
+  url,
+  setUrl,
+}) {
   const [post, setPost] = useState({});
-  console.log(testPostsId);
-  //暫定、Post.jsxの要素作成のonselectにsetstateを入れてpropsで貰う予定
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  console.log(url);
   useEffect(() => {
     const getPostDetail = async () => {
       try {
-        const response = await fetch(`/api/posts/${testPostsId}`);
+        const response = await fetch(`/api/posts/${postId}`);
         const { data } = await response.json();
         setPost(data.data);
       } catch {
@@ -17,38 +24,43 @@ export default function Detail({ userInfo, setUserInfo }) {
       }
     };
     getPostDetail();
-  });
+    console.log(post);
+  }, [loading]);
 
   const joinPost = async () => {
-    const nowUserId = "makochi@gmail.com"; //暫定、親コンポで今ログインしてるユーザーの情報を管理して、propsで貰う予定
+    const nowUserId = userInfo;
+    console.log(userInfo);
     const patchData = {
       status: false,
       join_user_email: nowUserId,
     };
     try {
-      const response = await fetch(`/api/posts/join/${post.id}`, {
+      const response = await fetch(`/api/posts/join/${postId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(patchData),
       });
       const { data } = await response.json();
+      setLoading(!loading);
     } catch {
       console.error("error");
     }
   };
 
   const leavePost = async () => {
+    console.log(userInfo);
     const patchData = {
       status: true,
       join_user_email: null,
     };
     try {
-      const response = await fetch(`/api/posts/join/${post.id}`, {
+      const response = await fetch(`/api/posts/join/${postId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(patchData),
       });
       const { data } = await response.json();
+      setLoading(!loading);
     } catch {
       console.error("error");
     }
@@ -57,7 +69,7 @@ export default function Detail({ userInfo, setUserInfo }) {
   const handleToList = () => {
     navigate("/list");
   };
-
+  console.log(post.join_user_email !== userInfo);
   return (
     <Box>
       <Box>
@@ -68,6 +80,9 @@ export default function Detail({ userInfo, setUserInfo }) {
         </AppBar>
       </Box>
       <Box>
+        <img src={url} style={{ width: 300, height: "auto", marginTop: 8 }} />
+      </Box>
+      <Box>
         <Typography>作業名：{post.job_name}</Typography>
         <Typography>内容：{post.job_content}</Typography>
         <Typography>募集要件：{post.requirements}</Typography>
@@ -76,10 +91,12 @@ export default function Detail({ userInfo, setUserInfo }) {
         <Typography>車両年式：{post.car_year}</Typography>
         <Typography>車両型式：{post.car_model}</Typography>
         <Typography>作業場所：{post.location}</Typography>
+        <Typography>作業場所：{post.job_date}</Typography>
         <Typography>
           作業日時：{post.start_time}〜{post.end_time}
         </Typography>
-        <Typography>報酬：{post.reward}</Typography>
+        <Typography>報酬：¥{post.reward?.toLocaleString()}</Typography>
+        <Typography>依頼者のメールアドレス：{post.post_user_email}</Typography>
       </Box>
       {post.status ? (
         <Button fullWidth onClick={joinPost}>
@@ -88,8 +105,15 @@ export default function Detail({ userInfo, setUserInfo }) {
       ) : (
         <Box>
           <br></br>
-          <Typography>参加済みです</Typography>
-          <Button fullWidth onClick={leavePost}>
+          <Typography>参加済みの案件です</Typography>
+          <Button
+            fullWidth
+            onClick={leavePost}
+            sx={{
+              visibility:
+                post.join_user_email !== userInfo ? "hidden" : "visible",
+            }}
+          >
             参加解除
           </Button>
         </Box>

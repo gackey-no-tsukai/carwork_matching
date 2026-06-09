@@ -17,6 +17,7 @@ function createPostsRepository(knex, table = "posts") {
           post_user_email: payload.post_user_email,
           job_name: payload.job_name,
           job_content: payload.job_content,
+          job_date: payload.job_date,
           requirements: payload.requirements,
           car_brand: payload.car_brand,
           car_name: payload.car_name,

@@ -3,9 +3,9 @@ import { Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Detail from "./Detail";
-export default function Post() {
+export default function Post({ postId, setPostId, url, setUrl }) {
+  console.log(setPostId);
   const [postArray, setPostArray] = useState([]);
-  const [postId, setPostId] = useState();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
@@ -37,13 +37,14 @@ export default function Post() {
   }, []);
   //userIDで指定した画像をゲットしてきて名前が同じpostArray内のデータに画像ファイルURlを設定する　img urlへ
   const handleToPost = (e) => {
-    console.log(e.currentTarget.id);
-    setPostId(e.currentTarget.id);
+    const newValue = Number(e.currentTarget.id);
+    console.log(postArray);
+    setPostId(newValue);
+    console.log(newValue);
+    setUrl(postArray.find((ele) => ele.id === newValue).picture);
     navigate("/detail");
   };
-  useEffect(() => {
-    <Detail testPostsId={postId} hidden={true} />;
-  }, [handleToPost]);
+
   return (
     <div>
       <ul
@@ -56,11 +57,13 @@ export default function Post() {
         }}
       >
         {postArray.map((ele) => {
+          // setUrl((url) => [...url, ele.picture]);
           return (
             <li key={ele?.id}>
               <Box
                 onClick={handleToPost}
                 id={ele?.id}
+                value={ele?.picture}
                 sx={{
                   border: 1,
                   padding: 2,
@@ -86,12 +89,13 @@ export default function Post() {
                   }}
                   alt={ele?.job_name}
                 />
+                <Typography variant="body2">{ele?.job_date}</Typography>
                 <Typography variant="body2">
                   {ele?.start_time}〜{ele?.end_time}
                 </Typography>
                 <Typography variant="body2">{ele?.location}</Typography>
                 <Typography variant="body2" sx={{ fontWeight: "bold" }}>
-                  {ele?.reward}
+                  ¥{ele?.reward.toLocaleString()}
                 </Typography>
               </Box>
             </li>

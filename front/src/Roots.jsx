@@ -9,6 +9,8 @@ import { useState } from "react";
 
 function Roots() {
   const [userInfo, setUserInfo] = useState("");
+  const [postId, setPostId] = useState(0);
+  const [url, setUrl] = useState("");
   return (
     <>
       <Routes>
@@ -16,11 +18,30 @@ function Roots() {
           path="/"
           element={<Login userInfo={userInfo} setUserInfo={setUserInfo} />}
         />
-        <Route path="/list" element={<List />} />
+        <Route
+          path="/list"
+          element={
+            <List
+              postId={postId}
+              setPostId={setPostId}
+              url={url}
+              setUrl={setUrl}
+            />
+          }
+        />
         <Route path="/post" element={<Post />} />
         <Route
           path="/detail"
-          element={<Detail userInfo={userInfo} setUserInfo={setUserInfo} />}
+          element={
+            <Detail
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              postId={postId}
+              setPostId={setPostId}
+              url={url}
+              setUrl={setUrl}
+            />
+          }
         />
         <Route
           path="/addtask"

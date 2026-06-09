@@ -30,23 +30,23 @@ export default function AddTask({ userInfo, setUserInfo }) {
     const judge = window.confirm("入力内容を登録しますか？");
     if (!judge) return;
     const now = new Date().toISOString();
-    const user = "kosuke@gmail.com"; //ここはpropsで引き渡すため仮定義
 
     const photoFile = formdata.picture.current.files[0];
     console.log("フォトファイル", photoFile);
     const fileName = photoFile.name;
     const fileExtention = fileName.substring(fileName.lastIndexOf(".") + 1);
     const blob = photoFile.slice(0, photoFile.size, photoFile.type);
-    const renamedFile = new File([blob], user + now + "." + fileExtention, {
+    const renamedFile = new File([blob], userInfo + now + "." + fileExtention, {
       type: photoFile.type,
     });
     console.log(renamedFile.name);
     // const PhotoURL = await uploadPhoto(renamedFile);
     const sentData = {
       // user_id: formdata.user_id.current?.value,
-      post_user_email: user,
+      post_user_email: userInfo,
       job_name: formdata.job_name.current?.value,
       job_content: formdata.job_content.current?.value,
+      job_date: formdata.job_date.current?.value,
       requirements: formdata.requirements.current?.value,
       car_brand: formdata.car_brand.current?.value,
       car_name: formdata.car_name.current?.value,

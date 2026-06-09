@@ -10,7 +10,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Post from "./Post";
 import { useNavigate } from "react-router-dom";
-export default function List() {
+export default function List({ postId, setPostId, url, setUrl }) {
   const navigate = useNavigate();
 
   const handleToSubmitForm = () => {
@@ -38,7 +38,7 @@ export default function List() {
           </Toolbar>
         </AppBar>
       </Box>
-      <Post />
+      <Post postId={postId} setPostId={setPostId} url={url} setUrl={setUrl} />
       <Button fullWidth onClick={handleToSubmitForm}>
         投稿する
       </Button>
