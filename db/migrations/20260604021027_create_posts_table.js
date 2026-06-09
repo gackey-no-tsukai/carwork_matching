@@ -15,8 +15,8 @@ exports.up = function (knex) {
     table.string("car_model", 32);
     table.text("picture");
     table.string("location", 64);
-    table.timestamp("start_time");
-    table.timestamp("end_time");
+    table.string("start_time");
+    table.string("end_time");
     table.decimal("reward", 10, 2);
     table.boolean("status").defaultTo(true);
     table.integer("join_user_id").references("users.id");

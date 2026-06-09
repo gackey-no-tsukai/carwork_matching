@@ -14,6 +14,7 @@ function createPostsController(service) {
     }
   };
   const create = async (req, res) => {
+    console.log(req.body);
     const result = await service.create(req.body);
     res.status(201).json({ data: result });
   };

@@ -1,11 +1,11 @@
 import { Button, Typography, Box, AppBar, Toolbar } from "@mui/material";
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router";
 export default function Detail() {
   const [post, setPost] = useState({});
 
   const testPostsId = 1; //暫定、Post.jsxの要素作成のonselectにsetstateを入れてpropsで貰う予定
-
+  const navigate = useNavigate();
   useEffect(() => {
     const getPostDetail = async () => {
       try {
@@ -54,6 +54,10 @@ export default function Detail() {
     }
   };
 
+  const handleToList = () => {
+    navigate("/list");
+  };
+
   return (
     <Box>
       <Box>
@@ -90,6 +94,7 @@ export default function Detail() {
           </Button>
         </Box>
       )}
+      <button onClick={handleToList}>戻る</button>
     </Box>
   );
 }
