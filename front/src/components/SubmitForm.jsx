@@ -128,7 +128,7 @@ export default function AddTask() {
           slotProps={{ inputLabel: { shrink: true } }}
           sx={{ width: "400px" }}
         />
-        <button onClick={handleSubmit}></button>
+        <button onClick={handleSubmit}>投稿</button>
       </Box>
     </>
   );
