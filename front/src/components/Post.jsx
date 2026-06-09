@@ -2,15 +2,18 @@ import { Tune } from "@mui/icons-material";
 import { Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import Detail from "./Detail";
 export default function Post() {
   const [postArray, setPostArray] = useState([]);
+  const [postId, setPostId] = useState();
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const getPost = async () => {
       try {
         const response = await fetch("/api/posts");
         const data = await response.json();
-        const result = await fetch("/api/photos?user_id=3");
+        const result = await fetch("/api/photos");
         const photo_data = await result.json();
         console.log(data);
         console.log(photo_data);
@@ -33,10 +36,14 @@ export default function Post() {
     getPost();
   }, []);
   //userIDで指定した画像をゲットしてきて名前が同じpostArray内のデータに画像ファイルURlを設定する　img urlへ
-  const handleToPost = () => {
+  const handleToPost = (e) => {
+    console.log(e.currentTarget.id);
+    setPostId(e.currentTarget.id);
     navigate("/detail");
   };
-
+  useEffect(() => {
+    <Detail testPostsId={postId} hidden={true} />;
+  }, [handleToPost]);
   return (
     <div>
       <ul
@@ -53,6 +60,7 @@ export default function Post() {
             <li key={ele?.id}>
               <Box
                 onClick={handleToPost}
+                id={ele?.id}
                 sx={{
                   border: 1,
                   padding: 2,

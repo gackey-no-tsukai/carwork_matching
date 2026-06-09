@@ -7,7 +7,7 @@ exports.seed = async function (knex) {
   await knex("posts").del();
   await knex("posts").insert([
     {
-      user_id: 1,
+      post_user_email: "yuma@gmail.com",
       job_name: "タイヤ交換してほしい",
       job_content:
         "タイヤを４つ交換してもらいます。道具や設備はこちらにあるので、現場に来て欲しいです",
@@ -22,10 +22,10 @@ exports.seed = async function (knex) {
       end_time: "2026-06-01 17:00:00.000+09",
       reward: 2000,
       status: true,
-      join_user_id: 4,
+      join_user_email: "codechrysalis@gmail.com",
     },
     {
-      user_id: 2,
+      post_user_email: "makochi@gmail.com",
       job_name: "マフラー交換して欲しい",
       job_content:
         "マフラーを直感マフラーに変えて欲しいです。道具や設備はこちらにあるので、現場に来て欲しいです",
@@ -40,10 +40,10 @@ exports.seed = async function (knex) {
       end_time: "2026-06-02 18:00:00.000+09",
       reward: 10000,
       status: true,
-      join_user_id: 3,
+      join_user_email: "kosuke@gmail.com",
     },
     {
-      user_id: 3,
+      post_user_email: "kosuke@gmail.com",
       job_name: "エンジンオーバーホールをしてほしい",
       job_content:
         "エンジンのオーバーホールをして欲しいです。道具や設備はないので、作業場用意して欲しいです",
@@ -58,7 +58,7 @@ exports.seed = async function (knex) {
       end_time: "2026-06-05 19:00:00.000+09",
       reward: 200000,
       status: false,
-      join_user_id: 1,
+      join_user_email: "yuma@gmail.com",
     },
   ]);
 };
