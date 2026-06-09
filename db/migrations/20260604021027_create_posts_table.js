@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("posts", function (table) {
     table.increments("id").primary();
-    table.integer("user_id").references("users.id");
+    table.text("post_user_email");
     table.text("job_name");
     table.text("job_content");
     table.text("requirements");
@@ -15,11 +15,11 @@ exports.up = function (knex) {
     table.string("car_model", 32);
     table.text("picture");
     table.string("location", 64);
-    table.string("start_time");
-    table.string("end_time");
+    table.string("start_time", 64);
+    table.string("end_time", 64);
     table.decimal("reward", 10, 2);
     table.boolean("status").defaultTo(true);
-    table.integer("join_user_id").references("users.id");
+    table.text("join_user_email");
     //非nullは後で実装する
   });
 };

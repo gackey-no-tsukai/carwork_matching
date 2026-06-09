@@ -30,7 +30,7 @@ export default function AddTask({ userInfo, setUserInfo }) {
     const judge = window.confirm("入力内容を登録しますか？");
     if (!judge) return;
     const now = new Date().toISOString();
-    const user = 3; //ここはpropsで引き渡すため仮定義
+    const user = "kosuke@gmail.com"; //ここはpropsで引き渡すため仮定義
 
     const photoFile = formdata.picture.current.files[0];
     console.log("フォトファイル", photoFile);
@@ -44,7 +44,7 @@ export default function AddTask({ userInfo, setUserInfo }) {
     // const PhotoURL = await uploadPhoto(renamedFile);
     const sentData = {
       // user_id: formdata.user_id.current?.value,
-      user_id: user,
+      post_user_email: user,
       job_name: formdata.job_name.current?.value,
       job_content: formdata.job_content.current?.value,
       requirements: formdata.requirements.current?.value,
@@ -53,8 +53,8 @@ export default function AddTask({ userInfo, setUserInfo }) {
       car_year: formdata.car_year.current?.value,
       car_model: formdata.car_model.current?.value,
       location: formdata.location.current?.value,
-      start_time: "2026-06-01 10:00:00.000+09",
-      end_time: "2026-06-01 10:00:00.000+09",
+      start_time: formdata.start_time.current?.value,
+      end_time: formdata.end_time.current?.value,
       reward: formdata.reward.current?.value,
       picture: renamedFile.name,
     };
@@ -75,12 +75,13 @@ export default function AddTask({ userInfo, setUserInfo }) {
         method: "POST",
         body: fileData,
       });
+      const postetData = await response.json();
+      alert("データの保存が完了しました！");
+      navigate("/list");
       console.log(sentData);
       if (!response.ok) {
         throw new Error(`サーバーエラーが発生しました: ${response.status}`);
       }
-      const postetData = await response.json();
-      alert("データの保存が完了しました！");
     } catch (error) {
       console.error("保存失敗:", error);
       alert("データの保存に失敗しました。通信環境などを確認してください。");

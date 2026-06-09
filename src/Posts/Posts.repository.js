@@ -14,7 +14,7 @@ function createPostsRepository(knex, table = "posts") {
     const result = await knex.transaction(async (trx) => {
       const [post] = await trx(table)
         .insert({
-          user_id: payload.user_id,
+          post_user_email: payload.post_user_email,
           job_name: payload.job_name,
           job_content: payload.job_content,
           requirements: payload.requirements,
@@ -28,7 +28,7 @@ function createPostsRepository(knex, table = "posts") {
           end_time: payload.end_time,
           reward: payload.reward,
           status: payload.status,
-          join_user_id: payload.join_user_id,
+          join_user_email: payload.join_user_email,
         })
         .returning("*");
       return post;
@@ -43,7 +43,7 @@ function createPostsRepository(knex, table = "posts") {
         .where({ id: id })
         .update({
           status: payload.status,
-          join_user_id: payload.join_user_id,
+          join_user_email: payload.join_user_email,
         })
         .returning("*");
 

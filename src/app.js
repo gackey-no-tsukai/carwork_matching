@@ -38,13 +38,12 @@ function buildApp() {
   app.get("/api/posts/:id", validateIdMiddleware, PostsController.find);
 
   app.get("/api/photos", async (req, res) => {
-    const user_id = req.query["user_id"];
-    console.log("スタート", user_id);
+    // const user_id = req.query["user_id"];
+    // console.log("スタート", user_id);
     try {
-      const user_data = await knex("posts")
-        .select("picture")
-        .where("user_id", user_id);
-      console.log(user_data);
+      const user_data = await knex("posts").select("picture");
+      //   .where("user_id", user_id);
+      // console.log(user_data);
 
       const result = await Promise.all(
         user_data.map(async (photo) => {
@@ -53,7 +52,7 @@ function buildApp() {
             const url = await s3GetSignedUrl(photo.picture);
             const res_object = await {
               url: url,
-              user_id: user_id,
+              // user_id: user_id,
               picture: photo.picture,
             };
             return res_object;
@@ -79,7 +78,7 @@ function buildApp() {
 
   app.post("/api/photos", upload.any(), async (req, res) => {
     console.log("ファイルズ", req.files);
-    const id = req.body.user_id;
+    const id = req.body.post_user_email;
     const file_name = req.files[0].originalname;
     try {
       const data = await uploadPhoto(

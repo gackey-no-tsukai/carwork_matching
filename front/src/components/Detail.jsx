@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 export default function Detail({ userInfo, setUserInfo }) {
   const [post, setPost] = useState({});
-
-  const testPostsId = 1; //暫定、Post.jsxの要素作成のonselectにsetstateを入れてpropsで貰う予定
+  console.log(testPostsId);
+  //暫定、Post.jsxの要素作成のonselectにsetstateを入れてpropsで貰う予定
   const navigate = useNavigate();
   useEffect(() => {
     const getPostDetail = async () => {
@@ -20,10 +20,10 @@ export default function Detail({ userInfo, setUserInfo }) {
   });
 
   const joinPost = async () => {
-    const nowUserId = 2; //暫定、親コンポで今ログインしてるユーザーの情報を管理して、propsで貰う予定
+    const nowUserId = "makochi@gmail.com"; //暫定、親コンポで今ログインしてるユーザーの情報を管理して、propsで貰う予定
     const patchData = {
       status: false,
-      join_user_id: nowUserId,
+      join_user_email: nowUserId,
     };
     try {
       const response = await fetch(`/api/posts/join/${post.id}`, {
@@ -40,7 +40,7 @@ export default function Detail({ userInfo, setUserInfo }) {
   const leavePost = async () => {
     const patchData = {
       status: true,
-      join_user_id: null,
+      join_user_email: null,
     };
     try {
       const response = await fetch(`/api/posts/join/${post.id}`, {
