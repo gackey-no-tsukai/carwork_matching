@@ -109,7 +109,7 @@ export default function Detail({
             component="img"
             image={url}
             alt="車両画像"
-            sx={{ width: "100%", maxHeight: 200, objectFit: "cover" }}
+            sx={{ width: "100%", maxHeight: 300, objectFit: "cover" }}
           />
         )}
 

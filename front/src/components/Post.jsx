@@ -56,6 +56,7 @@ export default function Post({ postId, setPostId, url, setUrl }) {
             value={ele?.picture}
             sx={{
               border: 1.5,
+              marginBottom: 4,
               padding: 1,
               maxWidth: 345,
               textAlign: "center",

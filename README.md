@@ -61,6 +61,23 @@
 
 #
 
+設定
+
+    -環境変数
+     - AWS_REGION               AWSの設定
+     - AWS_BUCKET_NAME
+     - AWS_IDENTITY_POOL_ID
+
+     - API_KEY                  FireBaseの設定
+     - AUTH_DOMAIN
+     - PROJECT_ID
+     - STORAGE_BUCKET
+     - MESSAGING_SENDER_ID
+     - APP_ID
+     - MEASUREMENT_ID
+
+#
+
 使用方法
 
     -1. アカウント作成:トップページのサインアップを押下し、メールアドレス・パスワードを登録する。
