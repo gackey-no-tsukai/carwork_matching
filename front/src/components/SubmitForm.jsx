@@ -1,7 +1,17 @@
-// import { useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
-// import { TypeSelector } from "./TypeSelector";
-import { TextField, Box, formControlLabelClasses } from "@mui/material";
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Stack,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useNavigate } from "react-router";
 
@@ -26,7 +36,6 @@ export default function AddTask({ userInfo, setUserInfo }) {
   };
 
   const handleSubmit = async () => {
-    console.log("formdata", formdata.picture);
     const judge = window.confirm("入力内容を登録しますか？");
     if (!judge) return;
     const now = new Date().toISOString();
@@ -39,10 +48,7 @@ export default function AddTask({ userInfo, setUserInfo }) {
     const renamedFile = new File([blob], userInfo + now + "." + fileExtention, {
       type: photoFile.type,
     });
-    console.log(renamedFile.name);
-    // const PhotoURL = await uploadPhoto(renamedFile);
     const sentData = {
-      // user_id: formdata.user_id.current?.value,
       post_user_email: userInfo,
       job_name: formdata.job_name.current?.value,
       job_content: formdata.job_content.current?.value,
@@ -58,8 +64,6 @@ export default function AddTask({ userInfo, setUserInfo }) {
       reward: formdata.reward.current?.value,
       picture: renamedFile.name,
     };
-    // sentData.picture = renamedFile.name;
-    console.log(renamedFile);
     try {
       const response = await fetch("/api/create", {
         method: "POST",
@@ -94,105 +98,195 @@ export default function AddTask({ userInfo, setUserInfo }) {
   };
 
   return (
-    <>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <TextField
-          label="作業名"
-          type="text"
-          inputRef={formdata.job_name}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="作業内容"
-          type="text"
-          inputRef={formdata.job_content}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="募集要件"
-          type="text"
-          inputRef={formdata.requirements}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="メーカー"
-          type="text"
-          inputRef={formdata.car_brand}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="車種"
-          type="text"
-          inputRef={formdata.car_name}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="年式"
-          type="text"
-          inputRef={formdata.car_year}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="型式"
-          type="text"
-          inputRef={formdata.car_model}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="写真"
-          type="file"
-          inputRef={formdata.picture}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
+    <Box sx={{ bgcolor: "#f5f5f5", minHeight: "100vh", pb: 1 }}>
+      <AppBar position="static" elevation={0} sx={{ mb: 1 }}>
+        <Toolbar variant="dense">
+          <Typography variant="h6" component="div" sx={{ fontWeight: "bold" }}>
+            依頼登録フォーム
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
-        <TextField
-          label="場所"
-          type="text"
-          inputRef={formdata.location}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="作業予定日"
-          type="date"
-          inputRef={formdata.job_date}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="開始時刻"
-          type="time"
-          inputRef={formdata.start_time}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="終了時刻"
-          type="time"
-          inputRef={formdata.end_time}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <TextField
-          label="報酬"
-          type="number"
-          inputRef={formdata.reward}
-          slotProps={{ inputLabel: { shrink: true } }}
-          sx={{ width: "400px" }}
-        />
-        <button type="submit" onClick={handleSubmit}>
-          登録する
-        </button>
-        <button onClick={handleBackButton}>戻る</button>
+      <Card
+        sx={{ maxWidth: 900, mx: "auto", m: 2, borderRadius: 3, boxShadow: 3 }}
+      >
+        <CardContent sx={{ p: { xs: 2, md: 4 } }}>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+              <Stack spacing={3}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    fontWeight: "bold",
+                    color: "primary.main",
+                    borderBottom: "2px solid",
+                    pb: 0.5,
+                  }}
+                >
+                  ⚙️ 作業・車両情報
+                </Typography>
+                <TextField
+                  label="作業名"
+                  type="text"
+                  placeholder="例:エンジンのオーバーホールをしてほしい"
+                  inputRef={formdata.job_name}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+                <TextField
+                  label="作業内容"
+                  type="text"
+                  multiline
+                  rows={3}
+                  placeholder="例:道具や設備はないので、作業場用意して欲しいです"
+                  inputRef={formdata.job_content}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+                <TextField
+                  label="募集要件"
+                  type="text"
+                  placeholder="例:自動車整備士の資格のある方"
+                  inputRef={formdata.requirements}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+                <TextField
+                  label="メーカー"
+                  type="text"
+                  placeholder="例:トヨタ"
+                  inputRef={formdata.car_brand}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+                <TextField
+                  label="車種"
+                  type="text"
+                  placeholder="例:クラウン"
+                  inputRef={formdata.car_name}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="年式"
+                      type="text"
+                      placeholder="例:製造年月日"
+                      inputRef={formdata.car_year}
+                      slotProps={{ inputLabel: { shrink: true } }}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="型式"
+                      type="text"
+                      placeholder="例:車検証を参照"
+                      inputRef={formdata.car_model}
+                      slotProps={{ inputLabel: { shrink: true } }}
+                      fullWidth
+                    />
+                  </Grid>
+                </Grid>
+              </Stack>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <Stack spacing={3}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{
+                    fontWeight: "bold",
+                    color: "primary.main",
+                    borderBottom: "2px solid",
+                    pb: 0.5,
+                  }}
+                >
+                  📍 条件・その他
+                </Typography>
+
+                <TextField
+                  label="写真"
+                  type="file"
+                  inputRef={formdata.picture}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+                <TextField
+                  label="場所"
+                  type="text"
+                  placeholder="例:愛知県日進市米野木町"
+                  inputRef={formdata.location}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+                <TextField
+                  label="作業予定日"
+                  type="date"
+                  inputRef={formdata.job_date}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="開始時刻"
+                      type="time"
+                      inputRef={formdata.start_time}
+                      slotProps={{ inputLabel: { shrink: true } }}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      label="終了時刻"
+                      type="time"
+                      inputRef={formdata.end_time}
+                      slotProps={{ inputLabel: { shrink: true } }}
+                      fullWidth
+                    />
+                  </Grid>
+                </Grid>
+                <TextField
+                  label="報酬金額 (¥)"
+                  type="number"
+                  inputRef={formdata.reward}
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
+              </Stack>
+            </Grid>
+          </Grid>
+          <Box sx={{ mt: 1, pt: 2, borderTop: "1px solid #e0e0e0" }}>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              fullWidth
+              onClick={handleSubmit}
+              sx={{
+                borderRadius: 2,
+                py: 1.5,
+                fontSize: "1.1rem",
+                fontWeight: "bold",
+              }}
+            >
+              この内容で登録する
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+      <Box sx={{ textAlign: "center", mt: -6, ml: 65 }}>
+        <Button
+          variant="text"
+          startIcon={<ArrowBackIcon />}
+          onClick={handleBackButton}
+          sx={{ color: "text.secondary", fontWeight: "bold" }}
+        >
+          前の画面に戻る
+        </Button>
       </Box>
-    </>
+    </Box>
   );
 }
