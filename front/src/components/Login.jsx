@@ -4,11 +4,17 @@ import {
   TextField,
   Button,
   Toolbar,
+  IconButton,
   Typography,
+  Modal,
+  makeStyles,
 } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { initializeApp } from "firebase/app";
 import { useNavigate } from "react-router-dom";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+// import { SingupModal } from "./SingupModal";
 
 import {
   //   connectAuthEmulator,
@@ -24,22 +30,38 @@ import {
 import { firebaseConfig } from "../utils/config";
 import { useState, useEffect, useRef } from "react";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "50%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  justifyItems: "center",
+};
+
 export default function Login({ userInfo, setUserInfo }) {
-  const [textMessage, setTxetMessage] = useState("");
+  const [textMessage, setTextMessage] = useState("");
   const [loginStatus, setLoginStatus] = useState("ログアウト中");
   const firebaseApp = initializeApp(firebaseConfig);
   const refEmail = useRef("");
   const refPassword = useRef("");
   const navigate = useNavigate();
+  const [open, setIsOpen] = useState(false);
+  const refEmailSingup = useRef("");
+  const refPasswordSingup = useRef("");
 
   const toggleSignIn = async () => {
     if (refEmail.current.value.length < 4) {
-      setTxetMessage("メールアドレスを入力してください");
+      setTextMessage("メールアドレスを入力してください");
       alert("メールアドレスを入力してください");
       return;
     }
     if (refPassword.current.value.length < 4) {
-      setTxetMessage("パスワードを入力してください");
+      setTextMessage("パスワードを入力してください");
       alert("パスワードを入力してください");
       return;
     }
@@ -57,170 +79,145 @@ export default function Login({ userInfo, setUserInfo }) {
       setUserInfo((info) => req.mail);
       navigate("/list");
     } else {
-      setTxetMessage((text) => data.message);
+      setTextMessage((text) => data.message);
     }
   };
 
-  function handleSignUp() {
-    if (refEmail.current.value.length < 4) {
+  async function handleSignUp() {
+    if (refEmailSingup.current.value.length < 4) {
       alert("メアドを入力して：失敗");
-      setTxetMessage("必須項目が記入されていません");
+      setTextMessage("必須項目が記入されていません");
       return;
     }
-    if (refPassword.current.value.length < 4) {
+    if (refPasswordSingup.current.value.length < 4) {
       alert("パスワードを入力してください：失敗");
-      setTxetMessage("必須項目が記入されていません");
+      setTextMessage("必須項目が記入されていません");
       return;
     }
     const req = {
-      mail: refEmail.current.value,
-      password: refPassword.current.value,
+      mail: refEmailSingup.current.value,
+      password: refPasswordSingup.current.value,
     };
-    fetch("api/login/singup", {
+    const res = await fetch("api/login/singup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req),
-    })
-      .then((res) => res.json())
-      .then((res) => setTxetMessage((text) => res.message));
+    });
+    const data = await res.json();
+    setTextMessage((text) => data.message);
+    if (!data.ok) alert(data.message);
+    setIsOpen((is) => false);
   }
 
-  // 下記処理はauthの調査完了後変更する
-  // const auth = getAuth(firebaseApp);
-
-  // async function toggleSignOut() {
-  //   await fetch("/api/login/singout");
-  //   // if (auth.currentUser) {
-  //   //   signOut(auth);
-  //   //   setTxetMessage("サインアウトに成功しました。");
-  //   //   setLoginStatus("ログアウト中");
-  //   // } else {
-  //   //   setTxetMessage("サインアウトに失敗しました。");
-  //   //   alert("auth.currentUserがfalseです。サインアウトに失敗");
-  //   // }
-  // }
-
-  // function sendVerificationEmailToUser() {
-  //   sendEmailVerification(auth.currentUser)
-  //     .then(function () {
-  //       setTxetMessage("認証のメールを送信しました");
-  //       alert("Email Verification Sent!");
-  //     })
-  //     .catch(function () {
-  //       if (auth.currentUser) {
-  //         setTxetMessage("短期間で複数の認証メールを送ることはできません");
-  //       } else {
-  //         setTxetMessage(
-  //           "まだサインインされていないため認証メールを送信できません",
-  //         );
-  //       }
-  //     });
-  // }
-
-  // function sendPasswordReset() {
-  //   const emailInput = document.getElementById("email");
-  //   const email = emailInput.value;
-  //   if (!auth.currentUser) {
-  //     setTxetMessage(
-  //       "まだサインインされていないためパスワードリセットを送信できません",
-  //     );
-  //     return;
-  //   }
-  //   sendPasswordResetEmail(auth, email)
-  //     .then(function () {
-  //       setTxetMessage("パスワードリセットの送信しました。");
-  //     })
-  //     .catch(function (error) {
-  //       alert("error発生");
-  //       console.log(error);
-  //     });
-  // }
-
-  // Listening for auth state changes.
-  //これがデータの取り出し方っぽい？
-  // onAuthStateChanged(auth, function (user) {
-  //   if (user) {
-  //     // User is signed in.
-  //     const displayName = user.displayName;
-  //     const email = user.email;
-  //     const emailVerified = user.emailVerified;
-  //     const photoURL = user.photoURL;
-  //     const isAnonymous = user.isAnonymous;
-  //     const uid = user.uid;
-  //     const providerData = user.providerData;
-  //   }
-  // });
+  const handleClose = () => {
+    setTextMessage((text) => "");
+    setIsOpen((is) => false);
+  };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: "10px",
-      }}
-    >
+    <>
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "45px",
+              }}
+            >
+              <TextField
+                type="text"
+                name="emailSingup"
+                placeholder="Email"
+                inputRef={refEmailSingup}
+              />
+              <TextField
+                type="password"
+                name="passwordSingup"
+                placeholder="Password"
+                inputRef={refPasswordSingup}
+              />
+              <button
+                id="quickstart-sign-up"
+                name="signup"
+                onClick={handleSignUp}
+              >
+                サインアップ
+              </button>
+            </Box>
+            <Box sx={{ marginTop: "24px" }}>{textMessage}</Box>
+          </Box>
+        </Modal>
+      </div>
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
-          gap: "30px",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          marginTop: "240px",
+          gap: "40px",
         }}
       >
-        <TextField
-          type="text"
-          id="email"
-          name="email"
-          placeholder="Email"
-          inputRef={refEmail}
-        />
-        <TextField
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Password"
-          inputRef={refPassword}
-        />
+        <Typography variant="h1">Carwork Matching</Typography>
+        <Box>{textMessage}</Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "45px",
+          }}
+        >
+          <TextField
+            type="text"
+            name="emailSingin"
+            placeholder="Email"
+            inputRef={refEmail}
+          />
+          <TextField
+            type="password"
+            name="passwordSingin"
+            placeholder="Password"
+            inputRef={refPassword}
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "20px",
+          }}
+        >
+          <IconButton onClick={toggleSignIn} color="primary">
+            サインイン
+            <LoginIcon />
+          </IconButton>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "20px",
+          }}
+        >
+          <IconButton
+            onClick={() => {
+              setTextMessage((text) => "");
+              setIsOpen((is) => true);
+            }}
+            color="inherit"
+          >
+            サインアップ
+            <PersonAddIcon />
+          </IconButton>
+        </Box>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "30px",
-        }}
-      >
-        <button
-          id="quickstart-sign-in"
-          name="signin"
-          data-upgraded=",MaterialButton"
-          onClick={toggleSignIn}
-        >
-          サインイン
-        </button>
-        {/* <button id="quickstart-sign-in" name="signout" onClick={toggleSignOut}>
-          サインアウト
-        </button> */}
-        <button id="quickstart-sign-up" name="signup" onClick={handleSignUp}>
-          サインアップ
-        </button>
-        {/* <button
-          id="quickstart-verify-email"
-          name="verify-email"
-          onClick={sendVerificationEmailToUser}
-        >
-          認証メール
-        </button>
-        <button
-          id="quickstart-password-reset"
-          name="verify-email"
-          onClick={sendPasswordReset}
-        >
-          パスワードリセット
-        </button> */}
-      </Box>
-      <Box>textMessage:{textMessage}</Box>
-      {/* <Box>loginStatus:{loginStatus}</Box> */}
-    </Box>
+    </>
   );
 }

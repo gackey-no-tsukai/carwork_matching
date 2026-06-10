@@ -43,7 +43,7 @@ async function toggleSignIn(InputEmail, InputPassword) {
 async function handleSignUp(InputEmail, InputPassword) {
   const email = InputEmail;
   const password = InputPassword;
-  let message = "OK";
+  let message = "サインアップ完了しました　サインインしてください";
   let ok = true;
 
   await createUserWithEmailAndPassword(auth, email, password).catch(

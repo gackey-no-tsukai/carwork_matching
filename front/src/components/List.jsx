@@ -7,6 +7,7 @@ import {
   IconButton,
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CarRepairIcon from "@mui/icons-material/CarRepair";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Post from "./Post";
 import { useNavigate } from "react-router-dom";
@@ -21,27 +22,35 @@ export default function List({ postId, setPostId, url, setUrl }) {
   };
 
   return (
-    <Box>
-      <Box sx={{ flexGrow: 1 }}>
+    <>
+      <Box sx={{ textAlign: "center" }}>
         <AppBar position="static">
           <Toolbar>
-            <Typography>整備募集一覧</Typography>
+            <IconButton
+              size="medium"
+              edge="start"
+              aria-label="logout"
+              sx={{ mr: 2, backgroundColor: "white" }}
+              onClick={handleLogout}
+            >
+              <LogoutIcon fontSize="large" sx={{ color: "gray" }} />
+            </IconButton>
+            <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
+              整備募集一覧
+            </Typography>
             <IconButton
               size="medium"
               edge="end"
               aria-label="logout"
               sx={{ mr: 2, backgroundColor: "white" }}
-              onClick={handleLogout}
+              onClick={handleToSubmitForm}
             >
-              <LogoutIcon fontSize="large" sx={{ color: "red" }} />
+              <CarRepairIcon fontSize="large" sx={{ color: "green" }} />
             </IconButton>
           </Toolbar>
         </AppBar>
       </Box>
       <Post postId={postId} setPostId={setPostId} url={url} setUrl={setUrl} />
-      <Button fullWidth onClick={handleToSubmitForm}>
-        投稿する
-      </Button>
-    </Box>
+    </>
   );
 }
