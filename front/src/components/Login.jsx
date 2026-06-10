@@ -27,7 +27,6 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { firebaseConfig } from "../utils/config";
 import { useState, useEffect, useRef } from "react";
 
 const style = {
@@ -46,7 +45,6 @@ const style = {
 export default function Login({ userInfo, setUserInfo }) {
   const [textMessage, setTextMessage] = useState("");
   const [loginStatus, setLoginStatus] = useState("ログアウト中");
-  const firebaseApp = initializeApp(firebaseConfig);
   const refEmail = useRef("");
   const refPassword = useRef("");
   const navigate = useNavigate();

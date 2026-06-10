@@ -18,6 +18,8 @@ export default function List({ postId, setPostId, url, setUrl }) {
     navigate("/addtask");
   };
   const handleLogout = () => {
+    const judge = window.confirm("サインアウトしますか？");
+    if (!judge) return;
     navigate("/");
   };
 
