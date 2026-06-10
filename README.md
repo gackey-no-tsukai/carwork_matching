@@ -15,8 +15,14 @@
 
 メイン画面のデモ画像
 ![alt text](./screen_shots/ログイン画面.png)
+
+依頼案件のリスト画面
 ![alt text](./screen_shots/案件リスト画面.png)
+
+依頼の登録画面
 ![alt text](./screen_shots/登録画面.png)
+
+依頼案件の内容確認画面
 ![alt text](./screen_shots/詳細画面.png)
 
 #
@@ -42,15 +48,17 @@
 -Node.js 20以上
 -npm 10以上
 
-    -1 .git clone  git@github.com:gackey-no-tsukai/carwork_matching.git
-    -2 npm install
-    -3 npm run dev
-    -4 cd front
-    -5 npm install
-    -6 npm run dev
+        -1 .git clone  git@github.com:gackey-no-tsukai/carwork_matching.git
+        -2 npm install
+        -3 npm run dev
+        -4 cd front
+        -5 npm install
+        -6 npm run dev
 
-    -7 データベースのセットアップ　npm run migrate-latest
-    -7 データベースへ初期データ挿入（任意）　npm run seed-data
+        -7 データベースのセットアップ　npm run migrate-latest
+        -8 データベースへ初期データ挿入（任意）　npm run seed-data
+
+#
 
 使用方法
 
@@ -72,66 +80,67 @@
 #
 
 ディレクトリ構成
-|────
-| ├── db
-│ ├── migrations
-│ │ ├── 20260604021007_create_users_table.js
-│ │ └── 20260604021027_create_posts_table.js
-│ └── seeds
-│ ├── 001_users.js
-│ └── 002_posts.js
-├── front
-│ ├── eslint.config.js
-│ ├── index.html
-│ ├── package-lock.json
-│ ├── package.json
-│ ├── public
-│ │ ├── favicon.svg
-│ │ └── icons.svg
-│ ├── README.md
-│ ├── src
-│ │ ├── App.jsx
-│ │ ├── assets
-│ │ │ ├── hero.png
-│ │ │ ├── react.svg
-│ │ │ └── vite.svg
-│ │ ├── components
-│ │ │ ├── Detail.jsx
-│ │ │ ├── List.jsx
-│ │ │ ├── Login.jsx
-│ │ │ ├── Post.jsx
-│ │ │ └── SubmitForm.jsx
-│ │ ├── main.jsx
-│ │ ├── Roots.jsx
-│ │ └── utils
-│ │ └── config.jsx
-│ └── vite.config.js
-├── knex.js
-├── knexfile.js
-├── package-lock.json
-├── package.json
-├── public
-│ ├── assets
-│ │ └── index-WK3lrZty.js
-│ ├── favicon.svg
-│ ├── icons.svg
-│ └── index.html
-├── README.md
-├── src
-│ ├── app.js
-│ ├── firebase
-│ │ ├── config.js
-│ │ └── index.js
-│ ├── Posts
-│ │ ├── index.js
-│ │ ├── Posts.controller.js
-│ │ ├── Posts.repository.js
-│ │ └── Posts.service.js
-│ ├── server.js
-│ └── Users
-│ ├── index.js
-│ ├── Users.controller.js
-│ ├── Users.repository.js
-│ └── Users.service.js
-└── utils
-└── index.js
+
+    |────
+    | ├── db
+    │ ├── migrations
+    │ │ ├── 20260604021007_create_users_table.js
+    │ │ └── 20260604021027_create_posts_table.js
+    │ └── seeds
+    │ ├── 001_users.js
+    │ └── 002_posts.js
+    ├── front
+    │ ├── eslint.config.js
+    │ ├── index.html
+    │ ├── package-lock.json
+    │ ├── package.json
+    │ ├── public
+    │ │ ├── favicon.svg
+    │ │ └── icons.svg
+    │ ├── README.md
+    │ ├── src
+    │ │ ├── App.jsx
+    │ │ ├── assets
+    │ │ │ ├── hero.png
+    │ │ │ ├── react.svg
+    │ │ │ └── vite.svg
+    │ │ ├── components
+    │ │ │ ├── Detail.jsx
+    │ │ │ ├── List.jsx
+    │ │ │ ├── Login.jsx
+    │ │ │ ├── Post.jsx
+    │ │ │ └── SubmitForm.jsx
+    │ │ ├── main.jsx
+    │ │ ├── Roots.jsx
+    │ │ └── utils
+    │ │ └── config.jsx
+    │ └── vite.config.js
+    ├── knex.js
+    ├── knexfile.js
+    ├── package-lock.json
+    ├── package.json
+    ├── public
+    │ ├── assets
+    │ │ └── index-WK3lrZty.js
+    │ ├── favicon.svg
+    │ ├── icons.svg
+    │ └── index.html
+    ├── README.md
+    ├── src
+    │ ├── app.js
+    │ ├── firebase
+    │ │ ├── config.js
+    │ │ └── index.js
+    │ ├── Posts
+    │ │ ├── index.js
+    │ │ ├── Posts.controller.js
+    │ │ ├── Posts.repository.js
+    │ │ └── Posts.service.js
+    │ ├── server.js
+    │ └── Users
+    │ ├── index.js
+    │ ├── Users.controller.js
+    │ ├── Users.repository.js
+    │ └── Users.service.js
+    └── utils
+    └── index.js
