@@ -38,16 +38,10 @@ function buildApp() {
   app.get("/api/posts/:id", validateIdMiddleware, PostsController.find);
 
   app.get("/api/photos", async (req, res) => {
-    // const user_id = req.query["user_id"];
-    // console.log("スタート", user_id);
     try {
       const user_data = await knex("posts").select("picture");
-      //   .where("user_id", user_id);
-      // console.log(user_data);
-
       const result = await Promise.all(
         user_data.map(async (photo) => {
-          console.log("photo", photo);
           if (photo.picture !== null) {
             const url = await s3GetSignedUrl(photo.picture);
             const res_object = await {
@@ -60,7 +54,6 @@ function buildApp() {
         }),
       );
 
-      console.log("result", result);
       res.status(200).json({ data: result });
       return;
     } catch (error) {
@@ -77,7 +70,6 @@ function buildApp() {
   app.post("/api/create", PostsController.create);
 
   app.post("/api/photos", upload.any(), async (req, res) => {
-    console.log("ファイルズ", req.files);
     const id = req.body.post_user_email;
     const file_name = req.files[0].originalname;
     try {
@@ -99,24 +91,10 @@ function buildApp() {
 
   app.post("/api/login/singup", async (req, res) => {
     const respons = await handleSignUp(req.body.mail, req.body.password);
-    // const insert = UsersController.create(req, res);
-    // console.log(insert);
     res.json(respons);
   });
 
-  // app.get("/api/login/singout", async (req, res) => {
-  //   await toggleSignOut();
-  //   res.send("OK");
-  // });
-  // app.post("/api/posts", PostsController.update);
-  // app.patch("/api/posts/:id", validateIdMiddleware, PostsController.update);
-  // app.delete("/api/posts/:id", validateIdMiddleware, PostsController.remove);
-
   app.get("/api/users", UsersController.read);
-  // app.get("/api/users/:id", validateIdMiddleware, UsersController.read);
-  // app.post("/api/users", PostsController.update);
-  // app.patch("/Users/:id", validateIdMiddleware, UsersController.update);
-  // app.delete("/Users/:id", validateIdMiddleware, UsersController.remove);
 
   app.use((req, res) => res.status(404).json({ error: "Not Found" }));
 

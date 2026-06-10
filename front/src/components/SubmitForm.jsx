@@ -41,7 +41,6 @@ export default function AddTask({ userInfo, setUserInfo }) {
     const now = new Date().toISOString();
 
     const photoFile = formdata.picture.current.files[0];
-    console.log("フォトファイル", photoFile);
     const fileName = photoFile.name;
     const fileExtention = fileName.substring(fileName.lastIndexOf(".") + 1);
     const blob = photoFile.slice(0, photoFile.size, photoFile.type);
@@ -82,7 +81,6 @@ export default function AddTask({ userInfo, setUserInfo }) {
       const postetData = await response.json();
       alert("データの保存が完了しました！");
       navigate("/list");
-      console.log(sentData);
       if (!response.ok) {
         throw new Error(`サーバーエラーが発生しました: ${response.status}`);
       }

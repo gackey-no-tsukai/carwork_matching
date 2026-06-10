@@ -25,7 +25,6 @@ export default function Detail({
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  console.log(url);
   useEffect(() => {
     const getPostDetail = async () => {
       try {
@@ -37,14 +36,12 @@ export default function Detail({
       }
     };
     getPostDetail();
-    console.log(post);
   }, [loading]);
 
   const joinPost = async () => {
     const judge = window.confirm("参加しますか？");
     if (!judge) return;
     const nowUserId = userInfo;
-    console.log(userInfo);
     const patchData = {
       status: false,
       join_user_email: nowUserId,
@@ -85,7 +82,6 @@ export default function Detail({
   const handleToList = () => {
     navigate("/list");
   };
-  console.log(post.join_user_email !== userInfo);
   return (
     <Box
       className="indicator-main"
