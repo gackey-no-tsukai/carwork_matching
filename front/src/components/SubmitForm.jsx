@@ -121,7 +121,7 @@ export default function AddTask({ userInfo, setUserInfo }) {
                     pb: 0.5,
                   }}
                 >
-                  ⚙️ 作業・車両情報
+                  ℹ️ 作業・車両情報
                 </Typography>
                 <TextField
                   label="作業名"
@@ -201,7 +201,7 @@ export default function AddTask({ userInfo, setUserInfo }) {
                     pb: 0.5,
                   }}
                 >
-                  📍 条件・その他
+                  🌊 条件・その他
                 </Typography>
 
                 <TextField

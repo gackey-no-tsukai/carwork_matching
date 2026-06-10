@@ -13,12 +13,12 @@
 
 #
 
-メイン画面のデモ画像
+ログイン画面のデモ画像
 
 ![alt text](./screen_shots/ログイン画面.png)
 
 依頼案件のリスト画面
-![alt text](./screen_shots/案件リスト画面.png)
+![alt text](./screen_shots/依頼リスト.png)
 
 依頼の登録画面
 ![alt text](./screen_shots/登録画面.png)

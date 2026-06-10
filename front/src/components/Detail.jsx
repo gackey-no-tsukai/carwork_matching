@@ -126,7 +126,7 @@ export default function Detail({
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-                📄 内容
+                📝 内容
               </Typography>
               <Typography
                 variant="body2"
@@ -152,7 +152,7 @@ export default function Detail({
 
             <Grid item xs={6}>
               <Typography variant="body2" color="text.secondary">
-                🚗 メーカー / 車両名
+                🚘 メーカー / 車両名
               </Typography>
               <Typography variant="body1" sx={{ fontWeight: "medium" }}>
                 {post.car_brand} {post.car_name}
@@ -161,7 +161,7 @@ export default function Detail({
 
             <Grid item xs={6}>
               <Typography variant="body2" color="text.secondary">
-                📅 年式 / 型式
+                🗓️ 年式 / 型式
               </Typography>
               <Typography variant="body1" sx={{ fontWeight: "medium" }}>
                 {post.car_year} ({post.car_model})
@@ -170,7 +170,7 @@ export default function Detail({
 
             <Grid item xs={12}>
               <Typography variant="body2" color="text.secondary">
-                📍 作業場所
+                🛜 作業場所
               </Typography>
               <Typography variant="body1" sx={{ fontWeight: "medium" }}>
                 {post.location}
@@ -179,7 +179,7 @@ export default function Detail({
 
             <Grid item xs={12}>
               <Typography variant="body2" color="text.secondary">
-                ⏱️ 作業日時
+                ⏱作業日時
               </Typography>
               <Typography variant="body1" sx={{ fontWeight: "medium" }}>
                 {post.job_date} {post.start_time} 〜 {post.end_time}
@@ -188,7 +188,7 @@ export default function Detail({
 
             <Grid item xs={12}>
               <Typography variant="body2" color="text.secondary">
-                ✉️ 依頼者アドレス
+                📨依頼者アドレス
               </Typography>
               <Typography variant="body1" sx={{ fontWeight: "medium" }}>
                 {post.post_user_email}
