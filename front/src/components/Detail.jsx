@@ -215,7 +215,7 @@ export default function Detail({
             </Typography>
           </Box>
           <Box sx={{ mt: 1 }}>
-            {post.status ? (
+            {post.status && post.post_user_email !== userInfo ? (
               <Button
                 fullWidth
                 variant="contained"
@@ -232,9 +232,11 @@ export default function Detail({
                   color="error"
                   sx={{ mb: 1, fontWeight: "bold" }}
                 >
-                  {post.join_user_email !== userInfo
-                    ? `※ 誰かが参加済みの案件です`
-                    : `※ 自分が参加済みの案件です`}
+                  {post.post_user_email === userInfo
+                    ? `※ 自分が登録した案件です`
+                    : post.join_user_email !== userInfo
+                      ? `※ 誰かが参加済み案件です`
+                      : `※ 自分が参加済みの案件です`}
                 </Typography>
                 <Button
                   fullWidth
